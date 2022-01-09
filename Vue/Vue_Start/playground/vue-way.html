@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- div#app 입력으로 자동 완성 -->
+    <div id="app"></div>
+    <script>
+        var div = document.querySelector('#app');
+        div.innerHTML = 'Hello World';
+        var viewModel = {};
+
+        // Object.defineProperty(대상 객체, 객체의 속성, {
+        //     // 정의할 내용
+        // })    // 객체의 동작을 재정의하는 API
+        
+        (function() {  // 즉시 실행 함수: init()과 reder()가 어플리케이션 실행 로직에 노출되지 않도록 코드를 또 다른 Scope(유효범위)에 넣어줌 -> 일반적인 오픈소스 라이브러리가 변수의 유효범위를 관리하는 방식
+          function init() {
+            Object.defineProperty(viewModel, 'str', {
+            // 속성에 접근했을 때의 동작을 정의
+            get: function() {
+                console.log('접근')
+            },
+            // 속성에 값을 할당했을 때의 동작을 정의
+            set: function(newValue) {
+                console.log('할당', newValue)
+                // 새로운 값을 받을 때마다 innerHTML에 새로운 값을 써주면 -> 화면이 계속해서 바뀜
+                render(newValue);
+                // Vue의 핵심은 Reactivity: 데이터의 변화를 라이브하게 감지해서 자동으로 화면에 그려줌
+            }
+          });
+        }
+
+        function render(value) {
+          // 어떤 값이 할당됐을 때 div의 텍스트 값을 바꾸는 코드를 render()로
+          div.innerHTML = value;
+        }
+
+        init();
+        })();
+
+        // function init() {
+        //     Object.defineProperty(viewModel, 'str', {
+        //     // 속성에 접근했을 때의 동작을 정의
+        //     get: function() {
+        //         console.log('접근')
+        //     },
+        //     // 속성에 값을 할당했을 때의 동작을 정의
+        //     set: function(newValue) {
+        //         console.log('할당', newValue)
+        //         // 새로운 값을 받을 때마다 innerHTML에 새로운 값을 써주면 -> 화면이 계속해서 바뀜
+        //         render(newValue);
+        //         // Vue의 핵심은 Reactivity: 데이터의 변화를 라이브하게 감지해서 자동으로 화면에 그려줌
+        //     }
+        //   });
+        // }
+
+        // function render(value) {
+        //   // 어떤 값이 할당됐을 때 div의 텍스트 값을 바꾸는 코드를 render()로
+        //   div.innerHTML = value;
+        // }
+
+        // init();
+    </script>
+</body>
+</html>

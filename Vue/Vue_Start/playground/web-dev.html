@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>   
+    <!-- html은 화면에 나타나는 돔의 정보를 담는 것 -->
+
+    <script>
+        // $('#app');
+        var div = document.querySelector('#app');   // div 태그의 정보를 받아와 -> div 변수에 담기 : Jquery의 선택자와 같은 역할
+        console.log(div);
+        var str = 'hello world'
+        div.innerHTML = str;   // JS가 하는 것은 해당 태그나 돔의 정보를 조작하는 역할
+
+        str = 'hello world!!!';
+        div.innerHTML = str;   // div 태그 안에 바뀐 정보를 다시 대입해주어야 변경 가능
+
+    </script>
+</body>
+</html>
