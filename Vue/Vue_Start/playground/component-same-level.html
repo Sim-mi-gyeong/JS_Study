@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 3. app-header 라는 컴포넌트 등록 -->
+        <!-- <app-header v-bind:프롭스 속성 이름="상위 컴포넌트 데이터 이름"></app-header>  -->
+        <app-header v-bind:propsdata="num"></app-header> 
+        <app-content v-on:pass="deliverNum"></app-content>  
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 2. appHeader라는 컴포넌트를 로컬로 등록
+        var appHeader = {
+            template: '<div>Header</div>',
+            props: ['propsdata']
+        }
+        var appContent = {
+            template: '<div>Content<button v-on:click="passNum">pass</button></div>',
+            methods: {
+                passNum: function() {
+                    this.$emit('pass', 10);   // 이벤트가 올라올때, pass로 10(인자)이 넘어옴 
+                }
+            }
+        }
+        new Vue({   // Root -> appConent의 상위 컴포넌트인 Root에 data를 선언해야 함.
+        
+            // 만든 인스턴스를 id가 app이라는 div 태그에 붙임 
+            // -> 만든 인스턴스가 div 태그 안에 유효하게 됨.
+            // -> 인스턴스에서 정의한 내용들이 
+            el: '#app',
+            // 1. components 속성을 이용해 app-header라는 컴포넌트 등록 
+            // -> app-header는 appHeader라는 별도의 변수로 빼기
+            components: {
+                'app-header': appHeader,
+                'app-content': appContent
+            },
+            data: {
+                num: 0
+            },
+            methods: {
+                deliverNum: function(value) {   // pass로 넘어온 인자 10을 -> 받는 쪽에서 value로 정의
+                    this.num = value;
+                }
+            }
+
+        }) 
+    </script>
+</body>
+</html>
