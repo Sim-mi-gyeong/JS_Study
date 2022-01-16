@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 마우스 입력 -> v-on:click="" -->
+        <button v-on:click="logText">click me</button>
+        <!-- 마우스 입력이 아닌 키 입력(키보드 입력 이벤트 타입 ex) keypress, keyup -->
+        <!-- <input type="text" v-on:keypress="logText"> -->
+        <!-- v-on:keyup.enter 에서 [ .enter ] : event Modifier -->
+        <input type="text" v-on:keyup.enter="logText">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {   // 로직 여러개(복수 개 -> s)
+                logText: function() {
+                    console.log('clicked');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
