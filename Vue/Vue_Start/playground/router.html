@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!-- 라우터에서 페이지 이동을 하기 위한 링크 태그 -->
+            <router-link to="/login">Login</router-link>
+            <!-- <a href="/login">Login</a> -->
+            <router-link to="/main">Main</router-link>
+        </div>
+        <!-- 페이지 url이 변경되었울 때 -> url에 따라 끊어지는 영역을 router-view -->
+        <!-- 뷰 인스턴스에 라우터 인스턴스를 연결해야만 사용 가능 -->
+        <router-view></router-view>
+    </div>
+    <!-- 뷰 라우터가 동작하기 위해서는 뷰 라이브러리가 있어야 하므로 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script>
+        var LoginComponent = {
+            template: '<div>login</div>'
+        }
+        var MainComponent = {
+            template: '<div>main</div>'
+        }
+        var router = new VueRouter({   // vueRouter를 인스턴스에 동작(연결)시키기
+            mode: 'history',
+            // 페이지의 라우팅 정보(어떤 url로 이동했을 때 어떤 페이지가 나오는지가 배열로 담김)
+            routes: [   // 페이지의 개수만큼 객체가 필요
+                {
+                    // path 속성: 페이지의 url 이름
+                    path: '/login',
+                    // name: 'login',
+                    // 해당 url에서 표시될 컴포넌트
+                    component: LoginComponent
+                },   
+                {   
+                    // url은 main / 컴포넌트 이름은 MainComponent
+                    path: '/main',
+                    // name: 'main',
+                    component: MainComponent
+                }
+            ]
+        });
+        
+        new Vue({
+            el:'#app',   // VueRouter를 Vue 인스선스에 연결했을 때 VueRouter가 사용할 수 있는 형태로 
+            router: router   // 앞쪽 router = methods, created와 같이 내부적으로 가지고 있는 router 속성 / 뒤쪽 router = 위에서 정의한 router 변수
+        });
+    </script>
+</body> 
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="getData"> get user</button>
+        <!-- [3. div 태그 나타내기] -->
+        <div>
+            {{ users }}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                users: []   // [1. data 속성 정의 -> 아래 methods에서 this.users를 받아 넣어줄 것]
+            },
+            methods: {
+                getData: function() {   // jsonplaceholder(=RestAPI) : 자바스크립트로 API를 요청할 때 테스트 해볼 수 있는 사이트
+                    console.log(this)
+                    var vm = this;
+                    axios.get('https://jsonplaceholder.typicode.com/users/')   // 10개의 유저 정보를 받아와
+                        .then(function(response) {   // 성공하면 then으로 진입
+                            console.log(response.data);   // [0. 여기서 데이터를 위에서, div 태그로 나타내기]
+                            // this.users가 data 속성에 정의한 users 인가 ??
+                            // this.users = response.data;   // [2. 해당 데이터를 받아 users 에 넣기]
+                            vm.users = response.data;
+                            console.log(this);
+                        })
+                        .catch(function(error) {   // 실패하면 catch로 진입
+                            console.log(error);
+                        });
+                }
+            }
+        })
+    </script>
+</body>
+</html>
