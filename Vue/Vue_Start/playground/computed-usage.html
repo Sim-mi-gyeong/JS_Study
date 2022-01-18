@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .warning {
+            color: red
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <!-- isError가 true일 때는 warning이 들어감(red 색상) / isError가 false일 때는 warning이 들어가지 X(red 색상 X) -->
+        <!-- <p v-bind:class=" { warning } ">Hello </p> -->
+        <p v-bind:class="errorTextColor">Hello </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                cname: 'blue-text',
+                isError: false
+            },
+            // computed 속성을 클래스 바인딩이나 기본적인 바인딩에 사용 가능
+            // isError에 따라 warning 처리를 : 템플릿 표현식 X -> Script 단에서 
+            computed: {
+                errorTextColor: function() {
+                    // if (this.isError) {
+                    //     return 'warning'
+                    // } else {
+                    //     return null;
+                    // }
+                    return this.isError ? 'warning' : null;
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
